@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>休日のお出かけ先 投票</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        .vote-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .vote-card {
+            border: 2px solid #eee;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .vote-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .destination-info h2 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .vote-info {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-right: 1rem;
+        }
+
+        .vote-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .vote-button:hover {
+            background-color: #357abd;
+        }
+
+        .vote-button:active {
+            transform: scale(0.95);
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        #reset-votes {
+            background: none;
+            border: 1px solid #ccc;
+            color: #777;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        #reset-votes:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>休日のお出かけ先 投票</h1>
+        <p>次のお休みはどこに行きたいですか？</p>
+    </header>
+
+    <main>
+        <div class="vote-list">
+            <section class="vote-card" data-id="onsen">
+                <div class="destination-info">
+                    <h2>温泉 ♨️</h2>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div class="vote-info">
+                        <span class="count">0</span> 票
+                    </div>
+                    <button class="vote-button">投票する</button>
+                </div>
+            </section>
+
+            <section class="vote-card" data-id="camping">
+                <div class="destination-info">
+                    <h2>キャンプ 🏕️</h2>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div class="vote-info">
+                        <span class="count">0</span> 票
+                    </div>
+                    <button class="vote-button">投票する</button>
+                </div>
+            </section>
+
+            <section class="vote-card" data-id="aquarium">
+                <div class="destination-info">
+                    <h2>水族館 🐠</h2>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div class="vote-info">
+                        <span class="count">0</span> 票
+                    </div>
+                    <button class="vote-button">投票する</button>
+                </div>
+            </section>
+
+            <section class="vote-card" data-id="shopping">
+                <div class="destination-info">
+                    <h2>ショッピング 🛍️</h2>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div class="vote-info">
+                        <span class="count">0</span> 票
+                    </div>
+                    <button class="vote-button">投票する</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <button id="reset-votes">投票をリセット</button>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const voteButtons = document.querySelectorAll('.vote-button');
+        const resetButton = document.getElementById('reset-votes');
+
+        voteButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.closest('.vote-card');
+                const countSpan = card.querySelector('.count');
+                let currentCount = parseInt(countSpan.textContent);
+                countSpan.textContent = currentCount + 1;
+            });
+        });
+
+        resetButton.addEventListener('click', () => {
+            if (confirm('すべての投票をリセットしますか？')) {
+                const counts = document.querySelectorAll('.count');
+                counts.forEach(span => {
+                    span.textContent = '0';
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
